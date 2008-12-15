@@ -21,8 +21,6 @@ no Markapl;
 package main;
 use Test::More tests => 2;
 
-my $str = 
-
 is(MyView->render("simple"),
    q{<h1>Hi</h1><h2 class="title">Hello World</h2>},
    "It renders h1 and h2(class => \"title\")");
