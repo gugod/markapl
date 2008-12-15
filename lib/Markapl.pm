@@ -7,7 +7,7 @@ use Devel::Declare ();
 use 5.008;
 our $VERSION = "0.01";
 
-my @stash = ();
+my @stack = ();
 
 {
     package Markapl::TagHandlers;
@@ -120,11 +120,11 @@ my @stash = ();
                                 }
                             }
                         }
-                        my @s = @stash;
-                        @stash = ();
-                        push @stash, $block->();
-                        push @s, "<${tag}${attr}>", @stash,  "</$tag>";
-                        @stash = @s;
+                        my @s = @stack;
+                        @stack = ();
+                        push @stack, $block->();
+                        push @s, "<${tag}${attr}>", @stack,  "</$tag>";
+                        @stack = @s;
                         return;
                     }
                 );
@@ -133,13 +133,19 @@ my @stash = ();
     }
 }
 
+sub outs($) {
+    my $str = shift;
+    push @stack, $str;
+    return "";
+}
+
 sub render {
     my ($self, $template) = @_;
-    @stash = ();
+    @stack = ();
     if (my $sub = $self->can($template)) {
-        push @stash, $sub->($self);
+        push @stack, $sub->($self);
     }
-    return join("", @stash);
+    return join("", @stack);
 }
 
 sub _get_tag_list {
@@ -167,6 +173,7 @@ sub import {
     {
         no strict;
         *{"${caller}::render"} = \&render;
+        *{"${caller}::outs"} = \&outs;
     }
 
     my $config = {};
