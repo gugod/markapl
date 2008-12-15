@@ -1,3 +1,4 @@
+.shipit
 Changes
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
@@ -14,6 +15,8 @@ MANIFEST
 META.yml			# Will be created by "make dist"
 README
 t/00.load.t
+t/inline-tags.t
+t/more.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
