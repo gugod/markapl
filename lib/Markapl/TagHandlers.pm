@@ -61,9 +61,15 @@
         }
     }
 
+    my %alt = (
+        'cell' => 'td',
+        'row' => 'tr',
+    );
+
     sub tag_parser_for {
         my ($tag) = @_;
-        # print "Make tag paser for $tag\n";
+        $tag = $alt{$tag} if defined($alt{$tag});
+
         return sub {
             local ($Declarator, $Offset) = @_;
             skip_declarator;

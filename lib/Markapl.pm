@@ -66,6 +66,7 @@ sub _get_tag_list {
         start_form end_form startform endform start_multipart_form
         end_multipart_form isindex tmpfilename uploadinfo url_encoded
         multipart form canvas
+        row cell
     )
 }
 

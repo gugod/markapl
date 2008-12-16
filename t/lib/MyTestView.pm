@@ -10,5 +10,14 @@ template "/foo/bar.html" => sub {
     outs "bar.html output";
 };
 
+
+template '/rowcell.html' => sub {
+    table {
+        row {
+            cell { "HI" }
+        }
+    }
+};
+
 1;
 
