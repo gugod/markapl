@@ -110,55 +110,129 @@ This document describes Markapl version 0.01
     package MyView;
     use Markapl;
 
-    sub a_good_page {
+    tempalte '/a/page.html' => sub {
         h1("#title") { "Hi" };
         p(".first") { "In the begining, lorem ipsum...." };
         p(style => "color: red;") { "But...." };
     }
 
     package main;
-    MyView->render("a_good_page");
+    my $output = MyView->render("/a/page.html");
+
+=head1 TUTORIAL
+
+Here's a short guide how to use this module. You can skip this
+tutorial section if you're already using L<Template::Declare>, since
+it's exactly the same.
+
+First of all, you need a sole package for defining your tempaltes,
+let's call it "MyView" in the example.  Then you C<use Markapl> (but
+not use base), then your view package will be installed many
+subroutines automatically:
+
+    package MyView;
+    use Markapl;
+
+To define a template, use C<template> function like this:
+
+    tempalte '/page.html' => sub {
+        h1("#title") { "Hi" };
+        p(".first") { "In the begining, lorem ipsum...." };
+        p(style => "color: red;") { "But...." };
+    }
+
+To render it, call C<render> function:
+
+    my $out = MyView->render("/page.html");
+
+Besides these two functions, C<Markapl> also exports about another 120
+tag functions that are named after HTML tags, for exapmle, h1, h2, h3,
+div, p, and span. Almost all HTML tags are defined as a function.
+
+In your template, if you say:
+
+    h1 { "Hi" };
+
+It'll be rendered as:
+
+    <h1>Hi</h1>
+
+The block after C<h1> is an anonymous sub-routine, and the return
+value of which will become the content of the C<h1> tag.
+
+If you want to add attributes to the tag, do it like this:
+
+    div(id => "example", class => "lipsum") { "Lorem ipsum" };
+
+Alternatively, you can use CSS selector syntax to quickly defined
+id and class attribute:
+
+    div("#example") { "Lorem ipsum" };
+
+That only works when the attribute list contain excatly one string inside.
+
+A special function C<outs> need to be used to concatinate strings with
+inline elements:
+
+    p {
+        outs "Hello, ";
+        a(href => "/users/gugod") { "gugod" };
+    }
 
 =head1 DESCRIPTION
 
+This is a new try to use L<Devel::Declare> to change the Perl5
+language. It learns pretty much everything from L<Tempalte::Declare>,
+and has similar interface. With only one difference: how element
+attributes are defined.
+
+In L<Template::Declare>, it goes like:
+
+    h1 {
+        id is "title";
+        outs "Hi";
+    };
+
+In here, it is:
+
+    h1(id => "title") { "Hi" };
+
+Or a shorthand for "id" attribute:
+
+    h1("#title") { "Hi" };
 
 =head1 INTERFACE 
 
-
 =over
 
-=item new()
+=item template($name, $code);
+
+Defines a template.
+
+=item render($name)
+
+You need to call it as class method like,
+
+   MyView->render("/foo.html");
+
+Or
+
+   render MyView, "/foo.html";
+
+If you happen to like this style.
+
+Doesn't support tempalte variable yet. Stay tuned.
+
+=item outs($str);
+
+Should be used in side a template body. It appends C<$str> to current
+output buffer frame.
 
 =back
-
-=head1 DIAGNOSTICS
-
-=over
-
-=item C<< Error message here, perhaps with %s placeholders >>
-
-[Description of error here]
-
-=item C<< Another error message here >>
-
-[Description of error here]
-
-[Et cetera, et cetera]
-
-=back
-
-
-=head1 CONFIGURATION AND ENVIRONMENT
-
-Markapl requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-None.
-
-=head1 INCOMPATIBILITIES
-
-None reported.
+C<Devel::Declare>
 
 =head1 BUGS AND LIMITATIONS
 
@@ -167,7 +241,6 @@ No bugs have been reported.
 Please report any bugs or feature requests to
 C<bug-markapl@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.
-
 
 =head1 AUTHOR
 
