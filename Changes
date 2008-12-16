@@ -2,6 +2,8 @@
 
 0.02:
   - mostly just code refactoing
+  - documentation 
+  - add 'template' funtion that defines template sub but can be named like "/foo.html" as in Template::Declare.
 
 0.01:
   - Initial release.
