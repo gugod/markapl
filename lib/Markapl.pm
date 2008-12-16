@@ -2,6 +2,7 @@ package Markapl;
 use strict;
 use warnings;
 use Devel::Declare ();
+use Sub::Install qw(install_sub);
 
 use 5.008;
 our $VERSION = "0.02";
@@ -22,6 +23,16 @@ sub end_buffer_frame {
 
 sub buffer {
     $buffer_stack[0];
+}
+
+sub template {
+    my ($name, $code) = @_;
+    my $caller = caller;
+    install_sub({
+        code => $code,
+        into => $caller,
+        as => $name
+    });
 }
 
 sub outs($) {
@@ -66,6 +77,7 @@ sub import {
         no strict;
         *{"${caller}::render"} = \&render;
         *{"${caller}::outs"} = \&outs;
+        *{"${caller}::template"} = \&template;
     }
 
     my $config = {};
@@ -105,7 +117,7 @@ This document describes Markapl version 0.01
     }
 
     package main;
-    MyView->show("a_good_page");
+    MyView->render("a_good_page");
 
 =head1 DESCRIPTION
 
