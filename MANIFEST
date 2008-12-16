@@ -9,6 +9,8 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Markapl.pm
+lib/Markapl/Buffer.pm
+lib/Markapl/TagHandlers.pm
 LICENSE
 Makefile.PL
 MANIFEST
@@ -16,8 +18,10 @@ META.yml			# Will be created by "make dist"
 README
 t/00.load.t
 t/inline-tags.t
+t/lib/MyTestView.pm
 t/more.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
 t/simple.t
+t/template.t
