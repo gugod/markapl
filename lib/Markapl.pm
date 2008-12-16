@@ -3,11 +3,10 @@ use feature 'say';
 use strict;
 use warnings;
 use Devel::Declare ();
+use YAML;
 
 use 5.008;
 our $VERSION = "0.01";
-
-my @stack = ();
 
 {
     package Markapl::TagHandlers;
@@ -120,11 +119,19 @@ my @stack = ();
                                 }
                             }
                         }
-                        my @s = @stack;
-                        @stack = ();
-                        push @stack, $block->();
-                        push @s, "<${tag}${attr}>", @stack,  "</$tag>";
-                        @stack = @s;
+
+                        my $buf = "<${tag}${attr}>";
+
+                        Markapl->new_buffer_frame;
+
+                        Markapl->buffer->append( $block->() );
+
+                        $buf .= Markapl->end_buffer_frame->data;
+
+                        $buf .= "</$tag>";
+
+                        Markapl->buffer->append( $buf );
+
                         return;
                     }
                 );
@@ -133,19 +140,36 @@ my @stack = ();
     }
 }
 
+use Markapl::Buffer;
+my @buffer_stack;
+
+sub new_buffer_frame {
+    my $buf = Markapl::Buffer->new(data => '');
+    unshift @buffer_stack, $buf;
+}
+
+sub end_buffer_frame {
+    shift @buffer_stack;
+}
+
+sub buffer {
+    $buffer_stack[0];
+}
+
 sub outs($) {
     my $str = shift;
-    push @stack, $str;
+    Markapl->buffer->append( $str );
     return "";
 }
 
 sub render {
     my ($self, $template) = @_;
-    @stack = ();
+
+    Markapl->new_buffer_frame;
     if (my $sub = $self->can($template)) {
-        push @stack, $sub->($self);
+        $sub->($self);
     }
-    return join("", @stack);
+    return Markapl->end_buffer_frame->data;
 }
 
 sub _get_tag_list {
