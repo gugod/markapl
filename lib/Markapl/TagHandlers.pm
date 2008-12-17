@@ -2,7 +2,7 @@ package Markapl::TagHandlers;
 
 use strict;
 use warnings;
-use Data::Dumper;
+use Data::Dump qw(pp);
 use Devel::Caller qw(caller_vars caller_cv);
 use PadWalker qw(peek_my peek_our peek_sub closed_over);
 
@@ -99,7 +99,7 @@ use PadWalker qw(peek_my peek_our peek_sub closed_over);
                                 my $vars = peek_sub(caller_cv(1));
                                 my $var_declare = "";
                                 for my $varname (keys %$vars) {
-                                    $var_declare .= "my " . Data::Dumper->Dump([ ${$vars->{$varname}} ], [ $varname ]);
+                                    $var_declare .= "my $varname = " . pp(${$vars->{$varname}}) . ";";
                                 }
                                 eval "{$var_declare \n\@attr = ($proto);\n}";
                             }
