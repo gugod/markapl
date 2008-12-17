@@ -19,6 +19,16 @@ template '/rowcell.html' => sub {
     }
 };
 
+sub linklist {
+    my @link = @_;
+    ul {
+        for my $l (@link) {
+            li {
+                a( href => $l->[1] ) { $l->[0] }
+            };
+        }
+    };
+}
 
 template '/linklist.html' => sub {
     html {
@@ -26,19 +36,10 @@ template '/linklist.html' => sub {
         body {
             h1 { "Hi" };
 
-            my @link = (
+            linklist(
                 ["Currency", "/currency"],
                 ["Foo", "/foo"],
             );
-            ul {
-                for my $l (@link) {
-                    li {
-                        a( href => $l->[1] ) {
-                            outs $l->[0];
-                        };
-                    };
-                }
-            };
 
         }
     };
