@@ -1,5 +1,8 @@
 # Revision history for Markapl
 
+0.03:
+  - element attribute values can now contains variables.
+
 0.02:
   - mostly just code refactoing
   - documentation 

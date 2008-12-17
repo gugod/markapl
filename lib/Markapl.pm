@@ -5,7 +5,7 @@ use Devel::Declare ();
 use Sub::Install qw(install_sub);
 
 use 5.008;
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 use Markapl::TagHandlers;
 
@@ -104,7 +104,7 @@ Markapl - Markup as Perl
 
 =head1 VERSION
 
-This document describes Markapl version 0.01
+This document describes Markapl version 0.03
 
 =head1 SYNOPSIS
 
