@@ -5,6 +5,7 @@ use warnings;
 use Data::Dump qw(pp);
 use Devel::Caller qw(caller_vars caller_cv);
 use PadWalker qw(peek_my peek_our peek_sub closed_over);
+use Devel::Declare ();
 
 our ($Declarator, $Offset);
 sub skip_declarator {
@@ -64,8 +65,15 @@ sub inject_if_block {
 }
 
 my %alt = (
-    'cell' => 'td',
-    'row' => 'tr',
+    'cell'      => 'td',
+    'row'       => 'tr',
+    'html_base' => 'base',
+    'html_link' => 'link',
+    'html_map'  => 'map',
+    'html_q'    => 'q',
+    'html_s'    => 's',
+    'html_sub'  => 'sub',
+    'html_tr'   => 'tr',
 );
 
 sub tag_parser_for {
