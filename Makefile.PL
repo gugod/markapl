@@ -13,7 +13,9 @@ requires
     'Devel::Declare' => 0;
 
 # Safer ones
-requires 'Data::Dump' => 0;
+requires
+    'Sub::Install' => 0,
+    'Data::Dump' => 0;
 
 WriteAll;
 
