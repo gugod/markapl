@@ -50,9 +50,7 @@ sub shadow {
 
 sub make_proto_unwrap {
     my ($proto) = @_;
-    # my $inject = 'my ($self) = @_;';
-    # $inject .= "my \$attr = { $proto };" if defined($proto) && length($proto);
-    return "";
+    return (defined($proto) && length($proto)) ? "($proto);" : "";
 }
 
 sub inject_if_block {
