@@ -45,5 +45,14 @@ template '/linklist.html' => sub {
     };
 };
 
+template '/var-in-attribute.html' => sub {
+    my $root = "/foo";
+    ul {
+        li { a(href => $root) { "Home" }; };
+        li { a(href => "$root/fun") { "Have Fun" }; };
+        li { a(href => "$root/logout") { "Logout" }; };
+    }
+};
+
 1;
 
