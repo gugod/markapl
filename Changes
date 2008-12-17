@@ -3,6 +3,7 @@
 0.04:
   - even more code refactoring.
   - list html4 tags in Markapl::Tags
+  - Add several very useful helpers
 
 0.03:
   - element attribute values can now contains variables.
