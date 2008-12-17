@@ -1,5 +1,9 @@
 # Revision history for Markapl
 
+0.04:
+  - even more code refactoring.
+  - list html4 tags in Markapl::Tags
+
 0.03:
   - element attribute values can now contains variables.
 

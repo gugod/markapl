@@ -184,6 +184,35 @@ Or a shorthand for "id" attribute:
 
     h1("#title") { "Hi" };
 
+There are several HTML tags named the same as one of perl builtin or ops.
+Here's a list of them:
+
+    link map q s sub tr
+
+To generate markup with these tags, put C<"html_"> prefix in front of them,
+like:
+
+    html_q { "I a quotation, but this tag is not supported by IE." }
+
+It'll produce:
+
+    <q>I a quotation, but this tag is not supported by IE.</q>
+
+For tables, since there's absolutely no way to clobber "tr" in Perl
+AFAIK (not without using source filter,) tr and td are both renamed
+to row and cell, correspondly:
+
+    table {
+      row {
+        cell { "gugod" };
+        cell { "170cm" };
+        cell { "100kg" };
+      }
+    }
+
+It actually make more sense. This idea is borrowed from
+L<Template::Declare>
+
 =head1 INTERFACE 
 
 =over
