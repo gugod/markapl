@@ -14,10 +14,8 @@ lib/Markapl/Helpers.pm
 lib/Markapl/TagHandlers.pm
 lib/Markapl/Tags.pm
 LICENSE
-Makefile
 Makefile.PL
 MANIFEST
-MANIFEST.bak
 MANIFEST.SKIP
 META.yml
 README
