@@ -5,7 +5,7 @@ use Devel::Declare ();
 use Sub::Install qw(install_sub);
 
 use 5.008;
-our $VERSION = 0.04;
+our $VERSION = "0.04";
 
 use Markapl::Tags;
 use Markapl::TagHandlers;

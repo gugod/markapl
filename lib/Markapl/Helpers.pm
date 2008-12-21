@@ -3,7 +3,7 @@ use strict;
 use Markapl;
 
 use Exporter::Lite;
-our $VERSION = 0.01;
+our $VERSION = "0.01";
 our @EXPORT = qw(THs TDs ths tds heads cells linklist);
 
 sub linklist {
