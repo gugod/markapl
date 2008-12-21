@@ -43,11 +43,11 @@ sub outs($) {
 }
 
 sub render {
-    my ($self, $template) = @_;
+    my ($self, $template, @vars) = @_;
 
     Markapl->new_buffer_frame;
     if (my $sub = $self->can($template)) {
-        $sub->($self);
+        $sub->($self, @vars);
     }
     return Markapl->end_buffer_frame->data;
 }
