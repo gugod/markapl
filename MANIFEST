@@ -10,7 +10,9 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Markapl.pm
 lib/Markapl/Buffer.pm
+lib/Markapl/Helpers.pm
 lib/Markapl/TagHandlers.pm
+lib/Markapl/Tags.pm
 LICENSE
 Makefile.PL
 MANIFEST
@@ -19,12 +21,16 @@ README
 t/00.load.t
 t/inline-tags.t
 t/lib/MyTestView.pm
+t/lib/MyTestView2.pm
 t/linklist.t
+t/markapl-buffer.t
 t/more.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
 t/rowcell.t
 t/simple.t
+t/tag-helpers.t
+t/tags-conflict-with-perl-builtin.t
 t/template.t
 t/var-in-attribute.t

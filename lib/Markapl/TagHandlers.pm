@@ -7,6 +7,8 @@ use Devel::Caller qw(caller_vars caller_cv);
 use PadWalker qw(peek_my peek_our peek_sub closed_over);
 use Devel::Declare ();
 
+our $VERSION = 0.01;
+
 our ($Declarator, $Offset);
 sub skip_declarator {
     $Offset += Devel::Declare::toke_move_past_token($Offset);
