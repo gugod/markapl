@@ -52,6 +52,26 @@ sub render {
     return Markapl->end_buffer_frame->data;
 }
 
+sub set {
+    my ($self, $name, $value) = @_;
+
+    if ($self->can("stash")) {
+        $self->stash->{$name} = $value;
+    }
+    elsif ((my $caller = caller)->can("stash")) {
+        $caller->stash->{$name} = $value;
+    }
+}
+
+sub get {
+    my ($self, $name) = @_;
+    if (defined($name) && $self->can("stash")) {
+        return $self->stash->{$name} || ""
+    }
+    $name = $self, $self = caller;
+    $self->get($name);
+}
+
 sub import {
     my ($class) = @_;
     my $caller = caller;
@@ -61,10 +81,12 @@ sub import {
         *{"${caller}::render"} = \&render;
         *{"${caller}::outs"} = \&outs;
         *{"${caller}::template"} = \&template;
+        *{"${caller}::get"} = \&get;
+        *{"${caller}::set"} = \&set;
     }
 
     my $config = {};
-    my $code_str = qq{package $caller;};
+    my $code_str = qq{package $caller; my \$stash = {}; sub stash { \$stash } };
 
     for my $tag ( Markapl::Tags::html() ) {
         $code_str .= qq{sub $tag (&);};

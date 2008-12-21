@@ -57,6 +57,10 @@ template '/perlbuiltin.html' => sub {
     html_q { "Here is a short quotation here is a short quotation" };
 };
 
+template '/stash1.html' => sub {
+    my $title = get("title");
+    h1 { $title };
+};
 
 1;
 
