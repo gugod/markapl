@@ -55,7 +55,6 @@ template '/var-in-attribute.html' => sub {
 
 template '/perlbuiltin.html' => sub {
     html_q { "Here is a short quotation here is a short quotation" };
-    html_base { "..." };
 };
 
 
