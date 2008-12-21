@@ -3,20 +3,29 @@ use strict;
 use Markapl;
 
 use Exporter::Lite;
-our @EXPORT = qw(THs TDs ths tds heads cells);
+our @EXPORT = qw(THs TDs ths tds heads cells linklist);
 
 sub linklist {
-    my @links = @_;
+    my @link = @_;
     ul {
+        while(@link) {
+            my $label = shift @link;
+            my $url = shift @link;
+            li {
+                a(href => $url) { $label };
+            }
+        }
     }
 }
 
 sub heads {
-    for (@_) { th { $_ } }
+    my @heads = @_;
+    row { for (@heads) { th { $_ } } }
 }
 
 sub cells {
-    for (@_) { cell { $_ } }
+    my @cells = @_;
+    row { for (@cells) { cell { $_ } } }
 }
 
 {
@@ -35,13 +44,24 @@ sub cells {
 
 Markapl::Helpers - Practical helper methods
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
+
+This moudle exports several useful functions that are mean to be used
+inside template.
 
 =head1 FUNCTIONS
 
 =over 4
+
+=item linklist($label1 => $url1, $label2 => $url2, ...)
+
+Take pairs of labels and urls, return a structure like this:
+
+    <ul>
+      <li><a href="$url1">$label1</a></li>
+      <li><a href="$url2">$label2</a></li>
+      ...
+    </ul>
 
 =item cells($item1, $item2, ...)
 
@@ -65,7 +85,6 @@ For example:
           cells(@data);
         }
     }
-
 
 =back
 
