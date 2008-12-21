@@ -36,7 +36,7 @@ sub cells {
     *THs = \&heads;
     *ths = \&heads;
     *TDs = \&cells;
-    *tds = \&cells; 
+    *tds = \&cells;
 }
 
 1;
