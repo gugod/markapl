@@ -3,14 +3,13 @@ use strict;
 use warnings;
 use Devel::Declare ();
 use Sub::Install qw(install_sub);
-
-use 5.008;
-our $VERSION = "0.04";
-
 use Markapl::Tags;
 use Markapl::TagHandlers;
-
 use Markapl::Buffer;
+
+use 5.008;
+our $VERSION = "0.05";
+
 my @buffer_stack;
 
 sub new_buffer_frame {
@@ -76,19 +75,17 @@ sub import {
     my ($class) = @_;
     my $caller = caller;
 
-    {
-        no strict;
-        *{"${caller}::render"} = \&render;
-        *{"${caller}::outs"} = \&outs;
-        *{"${caller}::template"} = \&template;
-        *{"${caller}::get"} = \&get;
-        *{"${caller}::set"} = \&set;
+    for my $name (qw(render outs template get set)) {
+        install_sub({
+            code => $name,
+            into => $caller,
+        });
     }
 
     my $config = {};
     my $code_str = qq{package $caller; my \$stash = {}; sub stash { \$stash } };
 
-    for my $tag ( Markapl::Tags::html() ) {
+    for my $tag ( Markapl::Tags->html() ) {
         $code_str .= qq{sub $tag (&);};
         $config->{$tag} = {
             const => Markapl::TagHandlers::tag_parser_for($tag)
@@ -96,6 +93,7 @@ sub import {
     }
 
     eval $code_str;
+
     Devel::Declare->setup_for($caller, $config);
 }
 
@@ -235,6 +233,9 @@ to row and cell, correspondly:
 It actually make more sense. This idea is borrowed from
 L<Template::Declare>
 
+Several helper methods are defined in L<Markapl::Helpers>. Read the
+document there too.
+
 =head1 INTERFACE 
 
 =over
@@ -259,8 +260,32 @@ Doesn't support tempalte variable yet. Stay tuned.
 
 =item outs($str);
 
-Should be used in side a template body. It appends C<$str> to current
-output buffer frame.
+Should only be usedin side a template body. It appends C<$str> to
+current output buffer frame.
+
+=item set($name, $value)
+
+Store a value under given name in your view package stash. Should be used
+as a class method like:
+
+    MyView->set(title => "Greeting");
+
+Think of it is assigning values to global template variables. C<$name>
+must be a string and C<$value> can be any scalar. It could be a
+reference to other structured data.
+
+=item get($name)
+
+Retriving a named value from the view package stash. This should only
+be used in template as a function call, like:
+
+    template 'index.html' => sub {
+        h1 { get("title") }
+    }
+
+If you call it as a class method, it will still work:
+
+    MyView->get("title")
 
 =back
 

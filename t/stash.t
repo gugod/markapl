@@ -16,3 +16,5 @@ like($out, qr/$title/);
 
 $out = MyTestView->render("/stash1.html");
 like($out, qr/<h1><\/h1>/);
+
+

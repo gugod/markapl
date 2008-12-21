@@ -3,6 +3,7 @@
 
 0.05:
   - allow passing variables to render.
+  - implement package-specific template stash
 
 0.04:
   - even more code refactoring.
