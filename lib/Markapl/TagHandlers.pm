@@ -2,9 +2,6 @@ package Markapl::TagHandlers;
 
 use strict;
 use warnings;
-use Data::Dump qw(pp);
-use Devel::Caller qw(caller_vars caller_cv);
-use PadWalker qw(peek_my peek_our peek_sub closed_over);
 use Devel::Declare ();
 
 our $VERSION = 0.01;
@@ -66,6 +63,17 @@ sub inject_if_block {
     }
 }
 
+sub inject_before_block {
+    my $inject = shift;
+    skipspace;
+    my $linestr = Devel::Declare::get_linestr;
+    if (substr($linestr, $Offset, 1) eq '{') {
+        substr($linestr, $Offset, 0) = $inject;
+        Devel::Declare::set_linestr($linestr);
+    }
+}
+
+
 my %alt = (
     'cell'      => 'td',
     'row'       => 'tr',
@@ -87,9 +95,13 @@ sub tag_parser_for {
         skip_declarator;
         my $name = strip_name;
         my $proto = strip_proto;
-        inject_if_block(
-            make_proto_unwrap($proto)
-        );
+
+        if (defined($proto)) {
+            inject_before_block("$proto, sub ");
+        }
+        else {
+            inject_before_block("sub");
+        }
 
         if (defined $name) {
             $name = join('::', Devel::Declare::get_curstash_name(), $name)
@@ -97,39 +109,29 @@ sub tag_parser_for {
             shadow(sub (&) { no strict 'refs'; *{$name} = shift; });
         } else {
             shadow(
-                sub (&) {
-                    my $block = shift;
+                sub {
+                    my $block = pop;
+                    my @attr = @_;
+
                     my $attr = "";
-                    if (defined $proto) {
-                        my @attr;
-                        eval "\@attr = ( $proto )";
-                        if ($@) {
-                            my $vars = peek_sub(caller_cv(1));
-                            my $var_declare = "";
-                            for my $varname (keys %$vars) {
-                                $var_declare .= "my $varname = " . pp(${$vars->{$varname}}) . ";";
+
+                    if (@attr == 1) {
+                        # Special case.
+                        # h1("#myid") { ... }
+
+                        my $css = $attr[0];
+                        while ($css =~ /([#\.])(\w+)/g) {
+                            if ($1 eq '#') {
+                                $attr .= qq{ id="$2"};
+                            } else {
+                                $attr .= qq{ class="$2"};
                             }
-                            eval "{$var_declare \n\@attr = ($proto);\n}";
                         }
-
-                        if (@attr == 1) {
-                                # Special case.
-                                # h1("#myid") { ... }
-
-                            my $css = $attr[0];
-                            while ($css =~ /([#\.])(\w+)/g) {
-                                if ($1 eq '#') {
-                                    $attr .= qq{ id="$2"};
-                                } else {
-                                    $attr .= qq{ class="$2"};
-                                }
-                            }
-                        } else {
-                            my ($k, $v) = (shift @attr, shift @attr);
-                            while ($k && $v) {
-                                $attr .= " $k=\"$v\"";
-                                ($k, $v) = (shift @attr, shift @attr);
-                            }
+                    } else {
+                        my ($k, $v) = (shift @attr, shift @attr);
+                        while ($k && $v) {
+                            $attr .= " $k=\"$v\"";
+                            ($k, $v) = (shift @attr, shift @attr);
                         }
                     }
 
