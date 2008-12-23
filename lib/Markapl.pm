@@ -8,7 +8,7 @@ use Markapl::TagHandlers;
 use Markapl::Buffer;
 
 use 5.008;
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 my @buffer_stack;
 

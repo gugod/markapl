@@ -35,7 +35,10 @@ t/rowcell.t
 t/simple.t
 t/stash.t
 t/tag-helpers.t
+t/tag-in-hash-key.t
 t/tags-conflict-with-perl-builtin.t
+t/template-var-simple.t
 t/template-vars.t
 t/template.t
+t/var-in-attribute-simple.t
 t/var-in-attribute.t
