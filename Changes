@@ -1,6 +1,10 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.06:
+  - Improved the code to pass attribute with interpolate variables.
+  - Less dependencies
+
 0.05:
   - allow passing variables to render.
   - implement package-specific template stash
