@@ -28,6 +28,7 @@ t/linklist.t
 t/markapl-buffer.t
 t/more.t
 t/multiple-view-packages.t
+t/no-semi.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
