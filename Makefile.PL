@@ -8,6 +8,7 @@ build_requires  'Test::More'        => '0.42';
 
 # The list of evil modules
 requires
+    'B::Hooks::EndOfScope' => 0,
     'Devel::Declare' => 0;
 
 # Safer ones

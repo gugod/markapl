@@ -3,8 +3,9 @@ package Markapl::TagHandlers;
 use strict;
 use warnings;
 use Devel::Declare ();
+use B::Hooks::EndOfScope;
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 our ($Declarator, $Offset);
 
@@ -74,6 +75,15 @@ sub inject_before_block {
     }
 }
 
+sub inject_scope {
+    on_scope_end {
+        my $linestr = Devel::Declare::get_linestr;
+        my $offset = Devel::Declare::get_linestr_offset;
+        substr($linestr, $offset, 0) = ';';
+        Devel::Declare::set_linestr($linestr);
+    };
+}
+
 my %alt = (
     'cell'      => 'td',
     'row'       => 'tr',
@@ -102,6 +112,8 @@ sub tag_parser_for {
 
         my $name = strip_name;
         my $proto = strip_proto;
+
+        inject_if_block("BEGIN { Markapl::TagHandlers::inject_scope };");
 
         if (defined($proto)) {
             inject_before_block("$proto, sub");
