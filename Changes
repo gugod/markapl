@@ -1,6 +1,9 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.07:
+  - Tag blocks do not need to have semi-colon at the end from now. 
+
 0.06:
   - Improved the code to pass attribute with interpolate variables.
   - Less dependencies

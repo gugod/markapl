@@ -9,16 +9,16 @@ use Markapl;
 sub readme {
     html {
         head {
-            title { "Markapl - Markup as Perl" };
-        };
+            title { "Markapl - Markup as Perl" }
+        }
         body {
-            h2 { "DESCRIPTION" };
+            h2 { "DESCRIPTION" }
 
             p("#description") {
                 "Markapl is the way to generate HTML with (augmented) Perl syntax. It's inspired by both Template::Declare and Markaby."
-            };
+            }
 
-            h2 { "INSTALLATION" };
+            h2 { "INSTALLATION" }
 
             p { "To install this module, run the following commands:" };
 
@@ -28,16 +28,16 @@ sub readme {
     make
     make test
     make install}
-             };
+            }
 
-            h2 { "COPYRIGHT AND LICENCE" };
+            h2 { "COPYRIGHT AND LICENCE" }
 
-            p { "Copyright (C) 2008, Kang-min Liu" };
+            p { "Copyright (C) 2008, Kang-min Liu" }
 
             p {
                 outs "This is free software, licensed under: ";
-                strong { "The MIT (X11) License" };
-            };
+                strong { "The MIT (X11) License" }
+            }
         }
     }
 }
