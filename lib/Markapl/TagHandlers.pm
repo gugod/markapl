@@ -96,6 +96,26 @@ my %alt = (
     'html_tr'   => 'tr',
 );
 
+sub _tag {
+    my ($tag, $attr, $block, $in_closure) = @_;
+    my $buf = "<${tag}${attr}>";
+
+    Markapl->new_buffer_frame;
+
+    Markapl->buffer->append(
+        join '', map {
+            ref($_) && $_->isa('Markapl::Tag') ? $_->() : $_
+        } $block->()
+    ) if defined $block && ref($block) eq 'CODE';
+
+    $buf .= Markapl->end_buffer_frame->data;
+    $buf .= "</$tag>";
+
+    return $buf if $in_closure;
+    Markapl->buffer->append( $buf );
+    return '';
+}
+
 sub tag_parser_for {
     my ($tag) = @_;
     $tag = $alt{$tag} if defined($alt{$tag});
@@ -146,20 +166,15 @@ sub tag_parser_for {
                     }
                 }
 
-                my $buf = "<${tag}${attr}>";
-
-                Markapl->new_buffer_frame;
-
-                Markapl->buffer->append( $block->() )
-                    if defined $block && ref($block) eq 'CODE';
-
-                $buf .= Markapl->end_buffer_frame->data;
-
-                $buf .= "</$tag>";
-
-                Markapl->buffer->append( $buf );
-
-                return;
+                if (defined wantarray and not wantarray) {
+                    my $sub = sub {
+                        _tag($tag, $attr, $block, 1);
+                    };
+                    bless $sub, 'Markapl::Tag';
+                    return $sub;
+                }
+                _tag($tag, $attr, $block);
+                return '';
             }
         );
 
