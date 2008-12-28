@@ -10,7 +10,7 @@ use Markapl::Buffer;
 use HTML::Entities;
 
 use 5.008;
-our $VERSION = "0.07";
+our $VERSION = "0.08";
 
 my @buffer_stack;
 
