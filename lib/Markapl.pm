@@ -7,6 +7,8 @@ use Markapl::Tags;
 use Markapl::TagHandlers;
 use Markapl::Buffer;
 
+use HTML::Entities;
+
 use 5.008;
 our $VERSION = "0.07";
 
@@ -35,10 +37,15 @@ sub template {
     });
 }
 
-sub outs($) {
+sub outs_raw($) {
     my $str = shift;
     Markapl->buffer->append( $str );
-    return "";
+    return '';
+}
+
+sub outs($) {
+    my $str = shift;
+    outs_raw encode_entities($str, '<>&"');
 }
 
 sub render {
@@ -75,7 +82,7 @@ sub import {
     my ($class) = @_;
     my $caller = caller;
 
-    for my $name (qw(render outs template get set)) {
+    for my $name (qw(render outs outs_raw template get set)) {
         install_sub({
             code => $name,
             into => $caller,
