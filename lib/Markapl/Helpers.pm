@@ -6,6 +6,8 @@ use Exporter::Lite;
 our $VERSION = "0.01";
 our @EXPORT = qw(THs TDs ths tds heads cells linklist);
 
+use Sub::Alias;
+
 sub linklist {
     my @link = @_;
     ul {
@@ -29,15 +31,10 @@ sub cells {
     row { for (@cells) { cell { $_ } } }
 }
 
-{
-    no strict;
-    no warnings;
-
-    *THs = \&heads;
-    *ths = \&heads;
-    *TDs = \&cells;
-    *tds = \&cells;
-}
+alias THs => 'heads';
+alias ths => 'heads';
+alias TDs => 'cells';
+alias tds => 'cells';
 
 1;
 

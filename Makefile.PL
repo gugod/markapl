@@ -13,6 +13,7 @@ requires
 
 # Safer ones
 requires
+    'Sub::Alias' => 0.02,
     'Exporter::Lite' => 0,
     'Sub::Install' => 0;
 
