@@ -113,7 +113,7 @@ This document describes Markapl version 0.03
     package MyView;
     use Markapl;
 
-    tempalte '/a/page.html' => sub {
+    template '/a/page.html' => sub {
         h1("#title") { "Hi" };
         p(".first") { "In the begining, lorem ipsum...." };
         p(style => "color: red;") { "But...." };
@@ -128,7 +128,7 @@ Here's a short guide how to use this module. You can skip this
 tutorial section if you're already using L<Template::Declare>, since
 it's exactly the same.
 
-First of all, you need a sole package for defining your tempaltes,
+First of all, you need a sole package for defining your templates,
 let's call it "MyView" in the example.  Then you C<use Markapl> (but
 not use base), then your view package will be installed many
 subroutines automatically:
@@ -138,7 +138,7 @@ subroutines automatically:
 
 To define a template, use C<template> function like this:
 
-    tempalte '/page.html' => sub {
+    template '/page.html' => sub {
         h1("#title") { "Hi" };
         p(".first") { "In the begining, lorem ipsum...." };
         p(style => "color: red;") { "But...." };
@@ -185,7 +185,7 @@ inline elements:
 =head1 DESCRIPTION
 
 This is a new try to use L<Devel::Declare> to change the Perl5
-language. It learns pretty much everything from L<Tempalte::Declare>,
+language. It learns pretty much everything from L<Template::Declare>,
 and has similar interface. With only one difference: how element
 attributes are defined.
 
@@ -256,7 +256,7 @@ Or
 
 If you happen to like this style.
 
-Doesn't support tempalte variable yet. Stay tuned.
+Doesn't support template variable yet. Stay tuned.
 
 =item outs($str);
 
