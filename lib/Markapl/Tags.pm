@@ -49,7 +49,7 @@ Markapl::Tags - List of tags.
 
 =head1 DESCRIPTION
 
-This moudle is used internally to get a list of HTML tags.  However,
+This module is used internally to get a list of HTML tags.  However,
 Markapl users may call C<Markapl::Tags->html> to retrieve the list of
 supported html tags. (Or even modify it)
 
