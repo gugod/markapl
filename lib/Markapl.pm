@@ -179,9 +179,9 @@ id and class attribute:
 
     div("#example") { "Lorem ipsum" };
 
-That only works when the attribute list contain excatly one string inside.
+That only works when the attribute list contain exactly one string inside.
 
-A special function C<outs> need to be used to concatinate strings with
+A special function C<outs> need to be used to concatenate strings with
 inline elements:
 
     p {
@@ -237,11 +237,11 @@ to row and cell, correspondly:
       }
     }
 
-It actually make more sense. This idea is borrowed from
+It actually makes more sense. This idea is borrowed from
 L<Template::Declare>
 
 Several helper methods are defined in L<Markapl::Helpers>. Read the
-document there too.
+documentation there too.
 
 =head1 INTERFACE 
 
@@ -263,11 +263,11 @@ Or
 
 If you happen to like this style.
 
-Doesn't support template variable yet. Stay tuned.
+Doesn't support template variables yet. Stay tuned.
 
 =item outs($str);
 
-Should only be usedin side a template body. It appends C<$str> to
+Should only be used inside a template body. It appends C<$str> to
 current output buffer frame.
 
 =item set($name, $value)
