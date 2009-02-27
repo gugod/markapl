@@ -5,6 +5,7 @@ use inc::Module::Install;
 all_from 'lib/Markapl.pm';
 
 build_requires
+    'HTML::Lint'        => 0,
     'Test::HTML::Lint'  => '2.06',
     'Test::More'        => '0.42';
 
