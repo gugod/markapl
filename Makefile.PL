@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use inc::Module::Install;
 
+name 'Markapl';
 all_from 'lib/Markapl.pm';
 
 build_requires
