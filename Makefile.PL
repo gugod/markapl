@@ -18,7 +18,6 @@ requires
 # Safer ones
 requires
     'HTML::Entities' => 0,
-    'Sub::Alias' => 0.02,
     'Exporter::Lite' => 0,
     'Sub::Install' => 0;
 
