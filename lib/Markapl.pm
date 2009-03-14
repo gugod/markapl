@@ -113,7 +113,7 @@ Markapl - Markup as Perl
 
 =head1 VERSION
 
-This document describes Markapl version 0.03
+This document describes Markapl version 0.08
 
 =head1 SYNOPSIS
 
@@ -137,8 +137,9 @@ it's exactly the same.
 
 First of all, you need a sole package for defining your templates,
 let's call it "MyView" in the example.  Then you C<use Markapl> (but
-not use base), then your view package will be installed many
-subroutines automatically:
+not use base), which installs many helper subroutines into your
+"MyView" package for declaring and rendering templates:
+
 
     package MyView;
     use Markapl;
