@@ -51,11 +51,14 @@ sub outs($) {
 sub render {
     my ($self, $template, @vars) = @_;
 
-    Markapl->new_buffer_frame;
     if (my $sub = $self->can($template)) {
+        Markapl->new_buffer_frame;
         $sub->($self, @vars);
+        return Markapl->end_buffer_frame->data;
+    } else {
+        require Carp;
+        Carp::croak( "no such template: $template in $self" );
     }
-    return Markapl->end_buffer_frame->data;
 }
 
 sub set {
