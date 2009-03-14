@@ -14,4 +14,4 @@ $output = MyTestView->render("/foo/bar.html");
 is($output, "bar.html output", "bar.html rendered ok");
 
 eval { Markapl->render("/not/there") };
-ok( $@ =~ /no such template/, "bad template call dies" );
+ok( $@ =~ /no such template/, "render() on non-existant template dies" );
