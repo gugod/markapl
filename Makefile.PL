@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use inc::Module::Install;
 
+name 'Markapl';
 all_from 'lib/Markapl.pm';
 
 build_requires
@@ -17,7 +18,6 @@ requires
 # Safer ones
 requires
     'HTML::Entities' => 0,
-    'Sub::Alias' => 0.02,
     'Exporter::Lite' => 0,
     'Sub::Install' => 0;
 
