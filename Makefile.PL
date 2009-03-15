@@ -21,5 +21,7 @@ requires
     'Exporter::Lite' => 0,
     'Sub::Install' => 0;
 
+author_tests 'xt';
+
 WriteAll;
 
