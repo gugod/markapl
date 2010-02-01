@@ -1,6 +1,7 @@
 .shipit
 Changes
 inc/Module/Install.pm
+inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
@@ -20,6 +21,7 @@ MANIFEST.SKIP
 META.yml
 README
 t/00.load.t
+t/closure.t
 t/inline-tags.t
 t/lib/MyTestView.pm
 t/lib/MyTestView2.pm
@@ -29,9 +31,7 @@ t/markapl-buffer.t
 t/more.t
 t/multiple-view-packages.t
 t/no-semi.t
-t/perlcritic.t
-t/pod-coverage.t
-t/pod.t
+t/outs_raw.t
 t/rowcell.t
 t/simple.t
 t/stash.t
@@ -43,3 +43,6 @@ t/template-vars.t
 t/template.t
 t/var-in-attribute-simple.t
 t/var-in-attribute.t
+xt/perlcritic.t
+xt/pod-coverage.t
+xt/pod.t

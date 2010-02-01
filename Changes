@@ -1,6 +1,11 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.08:
+  - A maintainance release for the compatibility with JiftyX::Markapl
+  - documentation fixes from dbrunton++ and rafl++
+  - various internal fixes from douglashunter++
+
 0.07:
   - Tag blocks do not need to have semi-colon at the end from now. 
 
