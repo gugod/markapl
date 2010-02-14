@@ -17,6 +17,7 @@ requires
 
 # Safer ones
 requires
+    'String::BufferStack' => 1.15,
     'HTML::Entities' => 0,
     'Exporter::Lite' => 0,
     'Sub::Install' => 0;

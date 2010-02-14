@@ -1,6 +1,9 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.09:
+  - Increase the compatibility with Jifty::Web::PageRegion
+
 0.08:
   - A maintainance release for the compatibility with JiftyX::Markapl
   - documentation fixes from dbrunton++ and rafl++

@@ -10,7 +10,7 @@ use Markapl::Buffer;
 use HTML::Entities;
 
 use 5.008;
-our $VERSION = "0.08";
+our $VERSION = "0.09";
 
 my $buffer = Markapl::Buffer->new(out_method => sub { join("", @_) });
 sub buffer {
