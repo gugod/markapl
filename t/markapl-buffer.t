@@ -3,13 +3,13 @@ use strict;
 use Test::More tests => 3;
 use Markapl::Buffer;
 
-my $buf = Markapl::Buffer->new;
+my $buf = Markapl::Buffer->new(out_method => sub { join("", @_) });
 $buf->append("foo");
 
-is( $buf->data, "foo", "Markapl::Buffer->append" );
+is( $buf->output_buffer, "foo", "Markapl::Buffer->append" );
 
 $buf->append("bar");
-is( $buf->data, "foobar", "Markapl::Buffer->append" );
+is( $buf->output_buffer, "foobar", "Markapl::Buffer->append" );
 
-$buf->clear;
-is( $buf->data, "", "Markapl::Buffer->clear" );
+$buf->flush_output;
+is( $buf->output_buffer, "", "Markapl::Buffer->clear" );

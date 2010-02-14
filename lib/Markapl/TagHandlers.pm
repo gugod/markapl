@@ -98,21 +98,24 @@ my %alt = (
 
 sub _tag {
     my ($tag, $attr, $block, $in_closure) = @_;
-    my $buf = "<${tag}${attr}>";
 
-    Markapl->new_buffer_frame;
+    my $b = Markapl->buffer;
 
+    Markapl->buffer(Markapl::Buffer->new(out_method => sub { join("", @_) }));
+
+    Markapl->buffer->push;
+    Markapl->buffer->append("<${tag}${attr}>");
     Markapl->buffer->append(
         join '', map {
             ref($_) && $_->isa('Markapl::Tag') ? $_->() : $_
         } $block->()
     ) if defined $block && ref($block) eq 'CODE';
+    Markapl->buffer->append("</$tag>");
+    my $buf = Markapl->buffer->pop;
 
-    $buf .= Markapl->end_buffer_frame->data;
-    $buf .= "</$tag>";
-
+    Markapl->buffer($b);
     return $buf if $in_closure;
-    Markapl->buffer->append( $buf );
+    Markapl->buffer->append($buf);
     return '';
 }
 

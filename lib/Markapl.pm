@@ -12,19 +12,10 @@ use HTML::Entities;
 use 5.008;
 our $VERSION = "0.08";
 
-my @buffer_stack;
-
-sub new_buffer_frame {
-    my $buf = Markapl::Buffer->new(data => '');
-    unshift @buffer_stack, $buf;
-}
-
-sub end_buffer_frame {
-    shift @buffer_stack;
-}
-
+my $buffer = Markapl::Buffer->new(out_method => sub { join("", @_) });
 sub buffer {
-    $buffer_stack[0];
+    $buffer = $_[1] if $_[1];
+    $buffer;
 }
 
 sub template {
@@ -52,9 +43,11 @@ sub render {
     my ($self, $template, @vars) = @_;
 
     if (my $sub = $self->can($template)) {
-        Markapl->new_buffer_frame;
+        Markapl->buffer->push;
         $sub->($self, @vars);
-        return Markapl->end_buffer_frame->data;
+        my $buf = Markapl->buffer->pop;
+        Markapl->buffer->flush_output;
+        return $buf
     } else {
         require Carp;
         Carp::croak( "no such template: $template in $self" );
