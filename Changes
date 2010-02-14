@@ -1,6 +1,9 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.10:
+  - Small refactoring
+
 0.09:
   - Increase the compatibility with Jifty::Web::PageRegion
 

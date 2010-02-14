@@ -10,7 +10,6 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Markapl.pm
-lib/Markapl/Buffer.pm
 lib/Markapl/Helpers.pm
 lib/Markapl/TagHandlers.pm
 lib/Markapl/Tags.pm
@@ -27,7 +26,6 @@ t/lib/MyTestView.pm
 t/lib/MyTestView2.pm
 t/lib/MyTestView3.pm
 t/linklist.t
-t/markapl-buffer.t
 t/more.t
 t/multiple-view-packages.t
 t/no-semi.t
