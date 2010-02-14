@@ -101,11 +101,14 @@ use String::BufferStack;
 sub _tag {
     my ($tag, $attr, $block, $in_closure) = @_;
 
-    my $b = Markapl->buffer;
+    my $original_buffer;
 
-    Markapl->buffer( String::BufferStack->new( out_method => sub { join("", @_) }) );
+    if ($in_closure) {
+        $original_buffer = Markapl->buffer;
+        Markapl->buffer( String::BufferStack->new( out_method => sub { join("", @_) }) );
+        Markapl->buffer->push;
+    }
 
-    Markapl->buffer->push;
     Markapl->buffer->append("<${tag}${attr}>");
     Markapl->buffer->append(
         join '', map {
@@ -113,11 +116,13 @@ sub _tag {
         } $block->()
     ) if defined $block && ref($block) eq 'CODE';
     Markapl->buffer->append("</$tag>");
-    my $buf = Markapl->buffer->pop;
 
-    Markapl->buffer($b);
-    return $buf if $in_closure;
-    Markapl->buffer->append($buf);
+    if ($original_buffer) {
+        my $output = Markapl->buffer->pop;
+        Markapl->buffer($original_buffer);
+        return $output;
+    }
+
     return '';
 }
 
