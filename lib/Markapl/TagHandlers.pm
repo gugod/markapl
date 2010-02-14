@@ -96,12 +96,14 @@ my %alt = (
     'html_tr'   => 'tr',
 );
 
+use String::BufferStack;
+
 sub _tag {
     my ($tag, $attr, $block, $in_closure) = @_;
 
     my $b = Markapl->buffer;
 
-    Markapl->buffer(Markapl::Buffer->new(out_method => sub { join("", @_) }));
+    Markapl->buffer( String::BufferStack->new( out_method => sub { join("", @_) }) );
 
     Markapl->buffer->push;
     Markapl->buffer->append("<${tag}${attr}>");

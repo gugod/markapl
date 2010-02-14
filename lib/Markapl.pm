@@ -5,17 +5,16 @@ use Devel::Declare ();
 use Sub::Install qw(install_sub);
 use Markapl::Tags;
 use Markapl::TagHandlers;
-use Markapl::Buffer;
-
+use String::BufferStack;
 use HTML::Entities;
 
 use 5.008;
 our $VERSION = "0.09";
 
-my $buffer = Markapl::Buffer->new(out_method => sub { join("", @_) });
+my $buffer;
 sub buffer {
     $buffer = $_[1] if $_[1];
-    $buffer;
+    $buffer ||= String::BufferStack->new( out_method => sub { join("", @_) });
 }
 
 sub template {
