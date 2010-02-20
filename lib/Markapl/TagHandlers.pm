@@ -207,8 +207,4 @@ sub tag_parser_for {
     }
 }
 
-sub _simple_tag_img {
-    print STDERR "YIHA\n";
-}
-
 1;
