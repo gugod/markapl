@@ -75,6 +75,16 @@ sub inject_before_block {
     }
 }
 
+sub inject_empty_block {
+    my $inject = "{}";
+    skipspace;
+    my $linestr = Devel::Declare::get_linestr;
+    if (substr($linestr, $Offset, 1) eq ';') {
+        substr($linestr, $Offset, 0) = $inject;
+        Devel::Declare::set_linestr($linestr);
+    }
+}
+
 sub inject_scope {
     on_scope_end {
         my $linestr = Devel::Declare::get_linestr;
@@ -109,13 +119,18 @@ sub _tag {
         Markapl->buffer->push;
     }
 
-    Markapl->buffer->append("<${tag}${attr}>");
-    Markapl->buffer->append(
-        join '', map {
-            ref($_) && $_->isa('Markapl::Tag') ? $_->() : $_
-        } $block->()
-    ) if defined $block && ref($block) eq 'CODE';
-    Markapl->buffer->append("</$tag>");
+    if ($tag eq "img") {
+        Markapl->buffer->append("<${tag}${attr}>");
+    }
+    else {
+        Markapl->buffer->append("<${tag}${attr}>");
+        Markapl->buffer->append(
+            join '', map {
+                ref($_) && $_->isa('Markapl::Tag') ? $_->() : $_
+            } $block->()
+        ) if defined $block && ref($block) eq 'CODE';
+        Markapl->buffer->append("</$tag>");
+    }
 
     if ($original_buffer) {
         my $output = Markapl->buffer->pop;
@@ -144,6 +159,7 @@ sub tag_parser_for {
         my $proto = strip_proto;
 
         inject_if_block("BEGIN { Markapl::TagHandlers::inject_scope };");
+        inject_empty_block;
 
         if (defined($proto)) {
             inject_before_block("$proto, sub");
@@ -189,6 +205,10 @@ sub tag_parser_for {
         );
 
     }
+}
+
+sub _simple_tag_img {
+    print STDERR "YIHA\n";
 }
 
 1;
