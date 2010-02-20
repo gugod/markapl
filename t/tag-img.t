@@ -17,7 +17,7 @@ template two => sub {
 };
 
 package main;
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 is(View->render("zero"), qq{<img>});
 is(View->render("one"), qq{<img src="/one.jpg">});
