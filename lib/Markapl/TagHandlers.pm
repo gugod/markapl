@@ -119,7 +119,7 @@ sub _tag {
         Markapl->buffer->push;
     }
 
-    if ($tag eq "img") {
+    if (grep { $tag eq $_ } Markapl::Tags->html_inline) {
         Markapl->buffer->append("<${tag}${attr}>");
     }
     else {

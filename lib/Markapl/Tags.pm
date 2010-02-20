@@ -39,6 +39,10 @@ sub html {
     );
 }
 
+sub html_inline {
+    qw( hr img input meta );
+}
+
 1;
 
 1;
