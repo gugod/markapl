@@ -126,7 +126,7 @@ sub _tag {
         Markapl->buffer->append("<${tag}${attr}>");
         Markapl->buffer->append(
             join '', map {
-                ref($_) && $_->isa('Markapl::Tag') ? $_->() : $_
+                ref($_) && $_->isa('Markapl::Tag') ? $_->() : ($_||"")
             } $block->()
         ) if defined $block && ref($block) eq 'CODE';
         Markapl->buffer->append("</$tag>");
