@@ -40,10 +40,10 @@ sub html {
 }
 
 sub html_inline {
-    qw( hr img input meta );
+    qw( base link meta isindex img br hr wbr
+        input area param embed bgsound spacer
+        basefont col frame );
 }
-
-1;
 
 1;
 
