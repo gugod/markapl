@@ -1,6 +1,9 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.12:
+  - Minor mantainence updates.
+
 0.11:
   - Several elements now produce outputs without closing tags as they are supposed to be.
   
