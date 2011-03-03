@@ -1,4 +1,4 @@
 # auto-generated shipit config file.
-steps = FindVersion, ChangeVersion, CheckChangeLog, DistTest, Commit, Tag, MakeDist, UploadCPAN
+steps = FindVersion, ChangeVersion, CheckChangeLog, DistTest, Commit, MakeDist, UploadCPAN
 
 CheckChangeLog.files = Changes
