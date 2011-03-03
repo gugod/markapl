@@ -1,6 +1,9 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.13:
+  - Allow extra [-:\.] case in id & class according to SGML basic types. by gslin++
+
 0.12:
   - Minor mantainence updates.
 
