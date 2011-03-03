@@ -19,8 +19,7 @@ template 'three' => sub {
 
 template 'four' => sub {
     h1(class => "id-four") { "four" };
-}
-
+};
 
 package main;
 use Test::More tests => 4;
