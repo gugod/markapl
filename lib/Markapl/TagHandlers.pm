@@ -177,7 +177,7 @@ sub tag_parser_for {
 
                 if (@attr == 1) {
                     my $css = $attr[0];
-                    while ($css =~ /([\#\.])(\w+)/g) {
+                    while ($css =~ /([\#\.])([A-Za-z][-:\.\w]*)/g) {
                         if ($1 eq '#') {
                             $attr .= qq{ id="$2"};
                         } else {

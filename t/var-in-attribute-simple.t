@@ -17,10 +17,18 @@ template 'three' => sub {
     h1(class => $title) { "three" };
 };
 
+template 'four' => sub {
+    h1(class => "id-four") { "four" };
+};
 
 package main;
-use Test::More tests => 3;
+use Test::More tests => 4;
 
+
+{
+    my $out = View->render("four");
+    is $out, qq{<h1 class="id-four">four</h1>};
+}
 
 {
     my $out = View->render("three");
