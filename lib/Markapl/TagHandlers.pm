@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Devel::Declare ();
 use B::Hooks::EndOfScope;
+use HTML::Entities;
 
 our $VERSION = 0.03;
 
@@ -186,8 +187,14 @@ sub tag_parser_for {
                     }
                 } else {
                     my ($k, $v) = (shift @attr, shift @attr);
-                    while ($k && $v) {
-                        $attr .= " $k=\"$v\"";
+                    while ($k) {
+			if (defined $v) {
+			    $v = encode_entities($v, '<>&"');
+			    $attr .= " $k=\"$v\"";
+			} else {
+			    $attr .= " $k";
+			}
+
                         ($k, $v) = (shift @attr, shift @attr);
                     }
                 }
