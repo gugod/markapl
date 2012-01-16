@@ -1,6 +1,10 @@
 # -*- yaml -*-
 # Revision history for Markapl
 
+0.14:
+  - properly encode attribute values to entities.
+  - Allow passing undef as attribute value to generate value-less attributes in HTML.
+
 0.13:
   - Allow extra [-:\.] case in id & class according to SGML basic types. by gslin++
 

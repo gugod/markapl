@@ -9,7 +9,7 @@ use String::BufferStack;
 use HTML::Entities;
 
 use 5.008;
-our $VERSION = "0.13";
+our $VERSION = "0.14";
 
 my $buffer;
 sub buffer {
