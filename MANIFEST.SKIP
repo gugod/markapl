@@ -5,3 +5,4 @@ covered
 cover_db
 ^Makefile(\.old)?$
 MANIFEST.bak
+^MYMETA\.(json|yml)$

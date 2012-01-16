@@ -41,6 +41,7 @@ t/tags-conflict-with-perl-builtin.t
 t/template-var-simple.t
 t/template-vars.t
 t/template.t
+t/undef-attribute-value.t
 t/var-in-attribute-simple.t
 t/var-in-attribute.t
 xt/perlcritic.t
