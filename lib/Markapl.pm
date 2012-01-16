@@ -207,13 +207,12 @@ Or a shorthand for "id" attribute:
 
     h1("#title") { "Hi" };
 
-There are several HTML tags named the same as one of perl builtin or ops.
-Here's a list of them:
+However, there are conflict between HTML tag names and perl builtin function /
+ops, and the behaviour of which cannot (and better not) be altered by Markapl:
 
     link map q s sub tr
 
-To generate markup with these tags, put C<"html_"> prefix in front of them,
-like:
+To generate markup with these tags, and C<"html_"> prefix to them, for instance:
 
     html_q { "I a quotation, but this tag is not supported by IE." }
 
@@ -238,6 +237,14 @@ L<Template::Declare>
 
 Several helper methods are defined in L<Markapl::Helpers>. Read the
 documentation there too.
+
+Smoe HTML5 tags allow value-less attributes like:
+
+    <script async src="foo.js"></script>
+
+To generate those, pass <undef> as the attribute value:
+
+    script(src => "foo.js", async => undef);
 
 =head1 INTERFACE 
 
@@ -310,7 +317,7 @@ Kang-min Liu  C<< <gugod@gugod.org> >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2008, Kang-min Liu C<< <gugod@gugod.org> >>.
+Copyright (c) 2008, 2009, 2010, 2011, 2012 Kang-min Liu C<< <gugod@gugod.org> >>.
 
 This is free software, licensed under:
 

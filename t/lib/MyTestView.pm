@@ -62,5 +62,8 @@ template '/stash1.html' => sub {
     h1 { $title };
 };
 
-1;
+template '/undef-attribute-value.html' => sub {
+    script(async => undef, src => "foo.js");
+};
 
+1;
